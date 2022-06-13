@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="static/css/style.css">
+      <title>Peça de computadores</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body style="background-color: lightblue;">
+    <div class="container">
+      <h1 style="font-family: Arial; text-align: center;"><strong>Computer Top</strong></h1>
+      <div class="col">
+      </div>
+      <table class="table table-striped mt-2" style="width: 100%; border: 1px solid black">
+        <thead>
+          <tr class="bg-info text-black" style="font-family: Arial;">
+            {% for header in data[0].keys() %}
+              <th scope="col">
+                {% if header == list(data[0].keys())[0] %}
+                  <a class="btn btn-success" href="/create?fields={{str(list(data[0].keys()))}}" style="margin-right: 5px;">Adicionar</a>
+                {% endif%}
+                {{ header}}
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in range(0, len(data)) %}
+            <tr id="{{row}}">
+              {% for col in range(0, len(list(data[row].values()))) %}
+                <td style="word-break:break-all;">
+                  {% if col == 0 %}
+                    <a class="btn btn-danger" href="/delete?id={{row}}" style="margin-right: 5px;">Remover</a>
+                    <a class="btn btn-success" href="/update?id={{row}}" style="text-decoration: none; color: white;">Editar</a>
+                    <strong style="font-family: Arial;">{{ list(data[row].values())[col] }}</strong>
+                  {% else %}
+                <strong style="font-family: Arial;">{{ list(data[row].values())[col] }}</strong>
+                  {% endif %}
+              {% endfor %}
+            </td>
+          {% endfor%}
+        </tbody>
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+  </html>
