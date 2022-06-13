@@ -14,7 +14,6 @@ def create():
         return render_template('create.html', fields=fields)
     elif request.method == 'POST':
         data = dict(request.form)
-
         with open('computador.csv', 'a') as mais:
             writer = csv.DictWriter(mais, fieldnames=data.keys())
             writer.writerow(data)
@@ -23,7 +22,6 @@ def create():
 @app.route('/')
 def read():
     data = []
-
     with open('computador.csv') as ler:
         reader = csv.DictReader(ler)
         for row in reader:
@@ -36,7 +34,6 @@ def delete():
         data = []
         temp_data = []
         reader = csv.DictReader(deletar)
-
         for row in reader:
             temp_data.append(dict(row))
         [
@@ -44,7 +41,6 @@ def delete():
             for row in range(0, len(temp_data))
             if row != int(request.args.get('id'))
         ]
-
         with open('computador.csv', 'w') as editar:
             writer = csv.DictWriter(editar, fieldnames=data[0].keys())
             writer.writeheader()
@@ -55,7 +51,6 @@ def delete():
 def update():
     if request.method == 'GET':
         data = []
-
         with open('computador.csv') as atualizar:
             reader = csv.DictReader(atualizar)
             for row in reader:
